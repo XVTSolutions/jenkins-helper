@@ -40,6 +40,8 @@ pipeline {
                             --build-arg project=${SONAR_PROJECT} \
                             --build-arg version=${BUILD_VERSION} \
                             --build-arg sonarUrl=${SONAR_URL} \
+                            --build-arg sonarExtraOpts=${SONAR_EXTRA_OPTS} \
+                            --build-arg dotnetBuildCommand="${DOTNET_BUILD_COMMAND}" \
                             --build-arg sonarToken=${SONAR_TOKEN} ."""
                         }
                     }//dir('PROJECT_SOURCE')

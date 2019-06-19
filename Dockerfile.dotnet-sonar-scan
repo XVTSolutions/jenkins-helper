@@ -27,6 +27,9 @@ ARG threshold=0
 ARG sonarUrl
 ARG sonarToken
 
+ARG sonarExtraOpts=""
+ARG dotnetBuildCommand="dotnet build --no-restore"
+
 # Build/Publish with restore (in case the cache isn't complete)
 RUN dotnet sonarscanner begin \
         /k:"${project}" \
@@ -35,9 +38,9 @@ RUN dotnet sonarscanner begin \
         /d:sonar.host.url="${sonarUrl}" \
         /d:sonar.login="${sonarToken}" \
         /d:sonar.cs.opencover.reportsPaths="/test/opencovercoverage.xml" \
-        /d:sonar.coverage.exclusions="test/**/*"
+        /d:sonar.coverage.exclusions="test/**/*" ${sonarExtraOpts}
 
-RUN dotnet build --no-restore
+RUN ${dotnetBuildCommand}
 
 # Start instrumentation
 WORKDIR /Minicover
